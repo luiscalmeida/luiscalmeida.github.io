@@ -22,7 +22,8 @@
 				<p>To start off we must put our wireless adapter in monitor mode - before this we could only catch traffic that was meant to us and now we will be able to see all the traffic that goes near us, even if it was not meant for us to see. </p>
 				<p>So, we have to check our wireless adapter name, for this type <b>ifconfig</b> and it should be there, probably called <b>wlan0</b> or <b>wlan1</b>(in my case). Type this command:</p>
 				<p id="command" style="margin-left: 50px; font-size: 25px"><b>airmon-ng start wlan1</b></p>
-				<p>If you get an error saying there are processes that could cause trouble, use <b>kill &lt;number_of_process&gt;</b> for each one of them, for instance: <b>kill 1476</b></p>
+				<!--<p>If you get an error saying there are processes that could cause trouble, use <b>kill &lt;number_of_process&gt;</b> for each one of them, for instance: <b>kill 1476</b></p>-->
+				<p>If you get an error saying there are processes that could cause trouble, type <b>airmon-ng check kill</b>, this will kill these processes.</p>
 				<p>airmon-ng will rename <b>wlan1</b> to <b>wlan1mon</b></p>
 
 			<h3>Capturing traffic with Airodump-ng</h3>
