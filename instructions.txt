@@ -1,0 +1,6 @@
+
+node --experimental-modules --es-module-specifier-resolution=node index.js <PROG>.js  <OUTPUT_FOLDER>
+
+mv <OUTPUT_FOLDER>/<PROG>_compiled.mjs . 
+
+node --experimental-modules --es-module-specifier-resolution=node <PROG>.mjs 
