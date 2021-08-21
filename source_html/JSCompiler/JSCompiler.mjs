@@ -1,7 +1,7 @@
-import { str2ast, ast2str } from "../runtime/utils";
-import { topCompile as reCompile } from "../RegExpCompiler/RegExpCompiler";
-import { ctx2str } from "../runtime/CompCtx";
-import { DYNAMIC } from "./config";
+import { str2ast, ast2str } from "../runtime/utils.js";
+import { topCompile as reCompile } from "../RegExpCompiler/RegExpCompiler.js";
+import { ctx2str } from "../runtime/CompCtx.mjs";
+import { DYNAMIC } from "./config.mjs";
 
 function mapJS(f, p) {
     if (!p) return p;
@@ -283,6 +283,7 @@ function genRegExpConstr(pat, raw) {
     var ret_str;
     try {
         var ret = reCompile(raw);
+        console.log("compiled with success");
         var m = ret.matcher;
         var flags = ret.flags;
         var nCaps = ret.nCaps;
@@ -296,6 +297,7 @@ function genRegExpConstr(pat, raw) {
       (function () { throw new SyntaxError(${JSON.stringify(e.message) || "Could not compile the regular expression"}) })()
       `;
         } else {
+            console.log(e);
             throw e;
         }
     }
@@ -343,6 +345,14 @@ function replaceRegExp(s) {
             } else return null;
 
         case "CallExpression":
+            if (s.callee.type == "MemberExpression" && s.callee.property.type == "Identifier" && s.callee.property.name == "exec") {
+                s.arguments.unshift({
+                    type: "Literal",
+                    value: s.loc.start.line,
+                    raw: s.loc.start.line + "",
+                });
+                return null;
+            }
             call_expr = true;
         case "NewExpression":
             var callee = s.callee;
