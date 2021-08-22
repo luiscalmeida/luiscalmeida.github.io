@@ -267,7 +267,7 @@ Label1: btsc    variable2,#1               ;Some other comment
         <script src="./monaco-editor/min/vs/loader.js"></script>
         <script src="./main.js"></script>
         <script>
-            require.config({ paths: { vs: "../node_modules/monaco-editor/min/vs" } });
+            require.config({ paths: { vs: "./monaco-editor/min/vs" } });
             var editor;
 
             require(["vs/editor/editor.main"], function () {
