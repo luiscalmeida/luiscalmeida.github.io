@@ -1,0 +1,20 @@
+Error output for file: tests_Test262_test_built-ins_String_prototype_replace_S15.5.4.11_A7_compiled.js 
+
+ 
+/Users/josesantos/projects/students/Priyanka/JSRegExps/compiledTests/tests_Test262_test_built-ins_String_prototype_replace_S15.5.4.11_A7_compiled.js:42
+	if (e instanceof _harness.Test262Error) throw e;
+	                                        ^
+Test262Error: #1: __FACTORY = String.prototype.replace; "__instance = new __FACTORY" lead to throwing exception
+ 
+
+
+Error output for file: tests_Test262_test_built-ins_String_prototype_replace_S15.5.4.11_A12_compiled.js 
+
+ 
+/Users/josesantos/projects/students/Priyanka/JSRegExps/compiledTests/src/harness.js:396
+    throw new Test262Error(message);
+    ^
+Test262Error: #1: String replace leaks global
+ 
+
+
