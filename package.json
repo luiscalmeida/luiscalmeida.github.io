@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "JS Regular Expression Compiler",
   "main": "index.js",
-  "homepage": "https://luiscalmeida.github.io/source_html",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
