@@ -285,6 +285,18 @@ button[disabled] .debugNavigationSecondLine {
 
 /************************************* Nav *************************************/
 
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: none !important;
+}
+
+nav{
+    z-index: 99999;
+}
+
 .navbar,
 footer {
     background-color: var(--primary-color);
@@ -322,12 +334,17 @@ footer {
     color: var(--third-color) !important;
 }
 
+.dropdown-item {
+    font-size: 15px;
+    z-index: 9999999999999999999999999;
+}
+
 /* Animation underline nav-item on hover and focus */
 .navbar .nav-item .nav-link:after {
     content: "";
     position: absolute;
     bottom: 6px;
-    left: 6px;
+    left: 2px;
     right: 100%;
     height: 1.6px;
     border-radius: 50px;
@@ -392,6 +409,7 @@ body {
     font-size: 16px;
     color: var(--text-color);
     overflow-x: hidden;
+    position: relative;
 }
 
 main {

@@ -8,6 +8,7 @@ import {
     state as makeState,
     save,
     saveBacktrack,
+    saveBacktrackEpsilon,
     saveBranch,
     stateSetLoc,
     stateSetInnerLoc,
@@ -157,7 +158,7 @@ function repeatMatcher(m, min, max, greedy, parenIndex, parenCount) {
             if (!isFailure(z)) {
                 return z;
             } else {
-                saveBacktrack(state, getId(state_xr));
+                saveBacktrackEpsilon(state, getId(state_xr));
                 return cont(state);
             }
         }

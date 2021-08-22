@@ -5,7 +5,7 @@ export { newCtx, ctx2str, multiline, ignoreCase, global, incrParenIndex, incrPar
 export { dynamicRegExpCreation, turnOffNative, turnOnNative, getNative } from "./runtime/DynRegExpLib.mjs";
 export { makeSuccess, isFailure, makeFailure, resultState } from "./runtime/Failure.mjs";
 export { RegExp } from "./runtime/RegExpLib.mjs";
-export { state, str, nCaps, endIndex, captures, save, saveFailure, stateSetLoc, saveBranch, saveBacktrack, getId, resetIdCounter } from "./runtime/State.mjs";
+export { state, str, nCaps, endIndex, captures, save, saveFailure, stateSetLoc, saveBranch, saveBacktrack, saveBacktrackEpsilon, getId, resetIdCounter } from "./runtime/State.mjs";
 export { resolveDollars } from "./runtime/StringLib.mjs";
 export {
     singletonCharSet,

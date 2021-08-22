@@ -61,7 +61,8 @@ function compile() {
     } catch (err) {
         console.log("Eval failed: Disabling App");
         console.log(err);
-        runtime_elm.innerHTML = matchFailed;
+        runtime_elm.innerHTML = `<div id="runtime-div"><span class="runtime-title">Match: </span><span id="runtime-match">${matchFailed}</span></div>
+        <div id="runtime-div"><span class="runtime-title">Groups: </span><div id="runtime-groups"></div></div>`;
         debug_elm.innerHTML = matchFailed;
         tree_elm.innerHTML = matchFailed;
         disableAllDebugButtons();
@@ -236,6 +237,49 @@ function removeOtherExecStyles() {
 function removeAllCurrentExecStyles() {
     editor.deltaDecorations([[currentDecorations]], []);
     currentDecorations = [];
+}
+
+function changeEditorValue(elm) {
+    let regex = elm.innerHTML;
+    let string = elm.dataset.value || "test";
+    let editor_block = "";
+    // Regex
+    let value = `var regex = ${regex};`;
+    // Execs
+    let execs = `regex.exec('${string}');`;
+    if(elm.dataset.multi_line === "true") {
+        execs = `regex.exec(\`${string}\`);`;
+    }
+    if(elm.dataset.mult > 1) {
+        let i = 1;
+        execs = "";
+        let values = $(elm).data('value');
+        while(i <= elm.dataset.mult) {
+            if(i === elm.dataset.mult) {
+                execs = execs + `regex.exec('${values[i-1]}');`;
+                if(elm.dataset.multi_line === "true") {
+                    execs = execs + `regex.exec(\`${values[i-1]}\`);`;
+                }
+            }
+            else {
+                execs = execs + `regex.exec('${values[i-1]}');\n`;
+                if(elm.dataset.multi_line === "true") {
+                    execs = execs + `regex.exec(\`${values[i-1]}\`);\n`;
+                }
+            }
+            i++;
+        }
+    }
+    // Comment / Explanation
+    if(elm.dataset.comment) {
+        let comment = elm.dataset.comment;
+        editor_block = `//${comment}\n${value}\n${execs}`;
+    }
+    else {
+        editor_block = `${value}\n${execs}`;
+    }
+    // Push to Editor
+    editor.setValue(editor_block);
 }
 
 /* Quick access buttons to change to the "first" or "last" state */
@@ -1029,10 +1073,28 @@ $(function () {
     document.getElementById("copyright").innerHTML = new Date().getFullYear();
 
     // Update active menu links on click
+    /*
     $(".navbar .collapse.navbar-collapse .nav-item").on("click", function () {
         $(".navbar .collapse.navbar-collapse").find(".active").removeClass("active");
         $(this).addClass("active");
+    });*/
+
+    // document.querySelectorAll(".dropdown-item").forEach(function(element) {
+    //     element.addEventListener('click', function() { 
+    //         changeEditorValue(element);
+    //     });
+    // });
+
+    
+    $(".dropdown-item").each(function () {
+        var item = this;
+        item.addEventListener("click", function(event) {
+            event.preventDefault();
+            changeEditorValue(item);
+        });
     });
+
+
 
     $("#toggleExpansion").on("click", function () {
         if($("#toggleExpansion").text() === "Expand Tree") {
@@ -1266,7 +1328,7 @@ function defineTreeVars() {
     margin = { top: 20, right: 90, bottom: 30, left: 90 };
     width = 150 * stateObject.states.length - margin.left - margin.right;
     height = 400 - margin.top - margin.bottom;
-
+    document.getElementById("treeWindow").innerHTML = "";
     svg = d3
         .select("#treeWindow")
         .append("svg")

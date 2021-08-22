@@ -111,6 +111,11 @@ function save(ret, state, b, source, startOffset, endOffset) {
 }
 
 function saveBacktrack(state, _id) {
+    state.old_states.push({ id: _id, backtrack: true });
+    state.id = id++;  
+}
+
+function saveBacktrackEpsilon(state, _id) {
     // state.id = id++;
     // state.old_states.push({ id: _id, backtrack: true });
     
@@ -148,4 +153,4 @@ function oldStates(state) {
     return state.old_states;
 }
 
-export { state, str, nCaps, endIndex, captures, save, saveBacktrack, saveBranch, saveFailure, oldStates, getId, stateSetLoc, stateSetInnerLoc, duplicateHead, resetIdCounter };
+export { state, str, nCaps, endIndex, captures, save, saveBacktrack, saveBacktrackEpsilon, saveBranch, saveFailure, oldStates, getId, stateSetLoc, stateSetInnerLoc, duplicateHead, resetIdCounter };
